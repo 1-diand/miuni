@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Preloader Espacial</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Orbitron', sans-serif;
+      color: #00f7ff;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    #gifLoader {
+      width: 200px;
+      height: auto;
+    }
+    #percentage {
+      font-size: 2em;
+      text-shadow: 0 0 10px #00f7ff;
+      margin-top: 20px;
+    }
+    .stars {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png'); 
+      opacity: 0.2;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div id="preloader-container">
+  <img id="gifLoader" src="Space.gif" alt="Cargando..." />
+  <div id="percentage">0%</div>
+</div>
+
+<script src="loader.js"></script>
+
+</body>
+</html>

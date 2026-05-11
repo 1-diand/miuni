@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="authoring-tool" content="Adobe_Animate_CC">
+<title>miunipag2</title>
+<style>
+  body {
+    overflow:hidden;
+    background-color: #000;
+  }
+  #animation_container {
+    position:absolute;
+    margin:auto;
+    left:-100%;right:-100%;
+    top:-100%;bottom:-100%;
+  }
+</style>
+<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+<script src="miunipag2.js?1777254615393"></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+function init() {
+    canvas = document.getElementById("canvas");
+    anim_container = document.getElementById("animation_container");
+    dom_overlay_container = document.getElementById("dom_overlay_container");
+    var comp=AdobeAn.getComposition("D7415B9E18519A49B2490F52592E1800");
+    var lib=comp.getLibrary();
+    var loader = new createjs.LoadQueue(false);
+    loader.installPlugin(createjs.Sound);
+    loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+    loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+    var lib=comp.getLibrary();
+    loader.loadManifest(lib.properties.manifest);
+}
+
+function handleFileLoad(evt, comp) {
+    var images=comp.getImages();    
+    if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }    
+}
+
+function handleComplete(evt,comp) {
+    var lib=comp.getLibrary();
+    var ss=comp.getSpriteSheet();
+    var queue = evt.target;
+    var ssMetadata = lib.ssMetadata;
+    for(i=0; i<ssMetadata.length; i++) {
+        ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+    }
+    exportRoot = new lib.miunipag2();
+    stage = new lib.Stage(canvas);
+    stage.enableMouseOver();    
+    
+    // --- LÓGICA DE PANTALLA COMPLETA ---
+    canvas.addEventListener("click", function() {
+        toggleFullScreen();
+    }, false);
+    // -----------------------------------
+
+    fnStartAnimation = function() {
+        stage.addChild(exportRoot);
+        createjs.Ticker.framerate = lib.properties.fps;
+        createjs.Ticker.addEventListener("tick", stage);
+    }    
+    
+    AdobeAn.makeResponsive(true,'both',true,2,[canvas,anim_container,dom_overlay_container]);   
+    AdobeAn.compositionLoaded(lib.properties.id);
+    fnStartAnimation();
+}
+
+function toggleFullScreen() {
+    if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+            document.documentElement.msRequestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+            document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+    }
+}
+
+function playSound(id, loop, offset) {
+    return createjs.Sound.play(id, {'interrupt':createjs.Sound.INTERRUPT_EARLY, 'loop': loop, 'offset': offset});
+}
+</script>
+</head>
+<body onload="init();" style="margin:0px;">
+    <div id="animation_container" style="background-color:rgba(0, 0, 0, 1.00); width:1920px; height:1080px">
+        <canvas id="canvas" width="1920" height="1080" style="position: absolute; display: block; background-color:rgba(0, 0, 0, 1.00); cursor: pointer;"></canvas>
+        <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:1080px; position: absolute; left: 0px; top: 0px; display: block;">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Preloader Espacial</title>
+  <style>
+ <style>
+  /* ELIMINAR TODO SCROLL POSIBLE */
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden !important; /* El !important es clave aquí */
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  /* Estilos de tu barra y gif... */
+  #gifLoader { width: 400px; }
+  .progress-container {
+    width: 400px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #00f7ff;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00f7ff, #00fff7);
+  }
+
+  #mIframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  z-index: 1; /* Detrás del preloader */
+  visibility: hidden; /* Está ahí, pero no se ve */
+}
+
+#preloader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10; /* Encima de todo */
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+  </style>
+</head>
+<body>
+  <div id="preloader-container">
+    <img id="gifLoader" src="Space.gif" alt="Cargando..." />
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <h2 id="percentage" style="color: #00f7ff; margin-top: 10px;">0%</h2>
+  </div>
+
+  <canvas id="space" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
+
+  <script src="loader.js"></script>
+</body>
+</html>

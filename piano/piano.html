@@ -42,10 +42,15 @@
         const player = ruffle.createPlayer();
         const container = document.getElementById("container");
         container.appendChild(player);
-      window.RufflePlayer.config = {
-           "splashScreen": false };
+     window.RufflePlayer = window.RufflePlayer || {};
+window.RufflePlayer.config = {
+    // Reemplaza 'preloader' por 'splashScreen'
+    "splashScreen": true,
+    "autoplay": "on",
+    "unmuteOverlay": "hidden"
+};
         player.load({
-            url: "/piano/mipiano.swf",     
+            url: "piano/mipiano.swf",     
             autoplay: "on",         // INTENTA CARGAR SIN EL BOTÓN PLAY
             unmute: true,           // Intenta activar el sonido automáticamente
             contextMenu: "hidden",  // Quita el menú de Ruffle

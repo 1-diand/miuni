@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>cruzapalabras</title>
+    <meta charset="utf-8" />
+    <style>
+        /* Pantalla completa total */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+        #container {
+            width: 100vw;
+            height: 100vh;
+        }
+        ruffle-player {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    </style>
+    <script src="../ruffle-nightly-2026_04_12-web-selfhosted/ruffle.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+      container.addEventListener("click", () => {
+          if (!document.fullscreenElement) {
+              container.requestFullscreen().catch(err => {
+                  console.log(`Error al intentar pantalla completa: ${err.message}`);
+              });
+          }
+      }, { once: true });
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.RufflePlayer.config = {"allowScriptAccess": true, };
+    window.addEventListener("load", (event) => {
+        const ruffle = window.RufflePlayer.newest();
+        const player = ruffle.createPlayer();
+        const container = document.getElementById("container");
+        container.appendChild(player);
+
+        player.load({
+            url: "/cruzapalabras/cruzapalabras.swf",
+            preloader: false,       // Quita el logo de carga
+            autoplay: "on",         // INTENTA CARGAR SIN EL BOTÓN PLAY
+            unmute: true,           // Intenta activar el sonido automáticamente
+            contextMenu: "hidden",  // Quita el menú de Ruffle
+            scale: "exactFit",    // Estira el contenido para llenar el contenedor
+    		letterbox: "off",     // Desactiva los bordes negros
+            quality: "high",
+            letterbox: "on"
+        });
+    });
+</script>
+</body>
+</html>

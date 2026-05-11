@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+	<head>
+		<title>cruzapalabras</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css" media="screen">
+		html, body { height:100%; background-color: #c8f39d;}
+		body { margin:0; padding:0; overflow:hidden; }
+		</style>
+		<script src="ruffle/ruffle.js"></script>
+     </head>
+    <body>
+        <div id="container"></div>
+        <script>
+            window.RufflePlayer = window.RufflePlayer || {};
+            window.addEventListener("load", (event) => {
+                const ruffle = window.RufflePlayer.newest();
+                const player = ruffle.createPlayer();
+                const container = document.getElementById("container");
+                container.appendChild(player);
+                player.load("tu_archivo.swf");
+            });
+        </script>
+    </body>
+</html>
